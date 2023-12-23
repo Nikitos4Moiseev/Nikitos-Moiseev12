@@ -1,0 +1,49 @@
+
+import java.util.Random;
+import java.util.Scanner;
+ 
+public class RockPaperScissors {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+ 
+        String[] choices = {"камень", "бумага", "ножницы"};
+ 
+        System.out.println("Игра \"Камень, бумага, ножницы\"!");
+ 
+        while (true) {
+            System.out.print("Выберите: камень, бумага, ножницы, или введите 'выход' для завершения: ");
+            String playerChoice = scanner.nextLine().toLowerCase();
+ 
+            if (playerChoice.equals("выход")) {
+                break;
+            }
+ 
+            if (!playerChoice.equals("камень") && !playerChoice.equals("бумага") && !playerChoice.equals("ножницы")) {
+                System.out.println("Некорректный ввод. Пожалуйста, выберите из предложенных вариантов.");
+                continue;
+            }
+ 
+            int computerIndex = random.nextInt(3);
+            String computerChoice = choices[computerIndex];
+ 
+            System.out.println("Вы выбрали: " + playerChoice);
+            System.out.println("Компьютер выбрал: " + computerChoice);
+ 
+            String result = determineWinner(playerChoice, computerChoice);
+            System.out.println(result);
+        }
+    }
+ 
+    public static String determineWinner(String playerChoice, String computerChoice) {
+        if (playerChoice.equals(computerChoice)) {
+            return "Ничья!";
+        } else if ((playerChoice.equals("камень") && computerChoice.equals("ножницы")) ||
+                   (playerChoice.equals("бумага") && computerChoice.equals("камень")) ||
+                   (playerChoice.equals("ножницы") && computerChoice.equals("бумага"))) {
+            return "Вы выиграли!";
+        } else {
+            return "Компьютер выиграл!";
+        }
+    }
+}
